@@ -3,7 +3,7 @@
 * @Date:   2017-04-11T13:53:42+08:00
 * @Email:  uniquecolesmith@gmail.com
 * @Last modified by:   eason
-* @Last modified time: 2017-04-12T02:43:30+08:00
+* @Last modified time: 2017-04-12T07:51:45+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -150,7 +150,7 @@ class Home extends React.Component {
               size={50}
               left={0}
               top={0}
-              loadingColor="#FF9800"
+              loadingColor="#00BCD4"
               status="loading"
               style={{ margin: '0 auto', display: 'inline-block', position: 'relative' }}
             />
