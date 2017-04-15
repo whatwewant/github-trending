@@ -3,11 +3,12 @@
 * @Date:   2017-04-11T13:53:42+08:00
 * @Email:  uniquecolesmith@gmail.com
 * @Last modified by:   eason
-* @Last modified time: 2017-04-15T16:20:42+08:00
+* @Last modified time: 2017-04-15T17:35:47+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 
@@ -108,8 +109,28 @@ const getStyles = (props) => {
 
 class Home extends React.Component {
 
+  static propTypes = {
+    loading: PropTypes.bool,
+
+    language: PropTypes.string,
+
+    languages: PropTypes.arrayOf(PropTypes.string),
+
+    repos: PropTypes.arrayOf(PropTypes.shape({
+      avatar: PropTypes.string,
+      repo: PropTypes.string,
+      desc: PropTypes.string,
+      stars: PropTypes.string,
+      forks: PropTypes.string,
+      avatars: PropTypes.array,
+      repoLink: PropTypes.string,
+    })),
+  };
+
   state = {
     open: false,
+
+    languages: [],
   };
 
   // componentWillReceiveProps(nextProps) {
@@ -147,7 +168,10 @@ class Home extends React.Component {
               <Link
                 key={index}
                 style={{ textDecoration: 'none' }}
-                onClick={() => { this.reposArea.scrollTo(0, 0); this.setState({ open: false }); }}
+                onClick={() => {
+                  this.setState({ open: false });
+                  this.reposArea.scrollTo(0, 0);
+                }}
                 to={`/repo/${language}`}
               >
                 <ListItem primaryText={`${language[0].toUpperCase()}${language.slice(1)}`} />

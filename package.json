@@ -14,7 +14,7 @@
     "dva": "^1.2.1",
     "dva-loading": "^0.2.1",
     "material-ui": "^0.17.3",
-    "prop-types": "^15.5.6",
+    "prop-types": "^15.5.8",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
     "react-tap-event-plugin": "^2.0.1"
