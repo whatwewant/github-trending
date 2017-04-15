@@ -3,7 +3,7 @@
 * @Date:   2017-04-11T13:53:42+08:00
 * @Email:  uniquecolesmith@gmail.com
 * @Last modified by:   eason
-* @Last modified time: 2017-04-15T21:07:05+08:00
+* @Last modified time: 2017-04-15T21:14:42+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -211,7 +211,7 @@ class Home extends React.Component {
             {this.props.repos.map((
               { avatar, repo, desc, stars, forks, avatars, repoLink }, index,
             ) => (
-              <a key={index} style={styles.link} data-href={repoLink}>
+              <a key={index} style={styles.link} href={repoLink}>
                 <ListItem key={repo}>
                   <Card>
                     <CardHeader
