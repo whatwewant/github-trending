@@ -3,7 +3,7 @@
 * @Date:   2017-04-11T13:53:42+08:00
 * @Email:  uniquecolesmith@gmail.com
 * @Last modified by:   eason
-* @Last modified time: 2017-04-15T22:26:33+08:00
+* @Last modified time: 2017-04-16T00:09:06+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -11,8 +11,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-
-import ReactPullToRefresh from 'react-pull-to-refresh';
 
 import AppBar from 'material-ui/AppBar';
 import Avatar from 'material-ui/Avatar';
@@ -74,6 +72,7 @@ const getStyles = (props) => {
       overflowX: 'hidden',
       overflowY: 'auto',
       WebkitOverflowScrolling: 'touch',
+      backgroundColor: 'rgba(255, 255, 255, 1)', // for hiding react pull to refresh icon
 
       loading: {
         transition: 'opacity .3s ease-in .2s',
@@ -184,56 +183,59 @@ class Home extends React.Component {
           </List>
           <Divider style={{ marginLeft: 8, marginRight: 8 }} />
         </Drawer>
-        <List
-          ref={ref => (this.reposArea = ref)}
+
+        <div
           style={styles.repo}
+          ref={ref => (this.reposArea = ref)}
         >
-          <ListItem style={styles.repo.loading} innerDivStyle={{ display: 'flex', justifyContent: 'center' }}>
-            <RefreshIndicator
-              size={50}
-              left={0}
-              top={0}
-              loadingColor="#00BCD4"
-              status="loading"
-              style={{ margin: '0 auto', display: 'inline-block', position: 'relative' }}
-            />
-          </ListItem>
-          {this.props.repos.map((
-            { avatar, repo, desc, stars, forks, avatars, repoLink }, index,
-          ) => (
-            <a key={index} style={styles.link} href={repoLink}>
-              <ListItem key={repo}>
-                <Card>
-                  <CardHeader
-                    avatar={avatar}
-                    title={repo}
-                    subtitle=""
-                  />
-                  <Divider style={{ marginLeft: 8, marginRight: 8 }} />
-                  <CardText>
-                    {desc}
-                  </CardText>
-                  <Divider style={{ marginLeft: 8, marginRight: 8 }} />
-                  <div style={styles.repo.statistics}>
-                    <div style={styles.repo.statistics.stars}>
-                      <img style={{ marginRight: 4 }} role="presentation" src={IconStar} />
-                      <span>{stars}</span>
+          <List>
+            <ListItem style={styles.repo.loading} innerDivStyle={{ display: 'flex', justifyContent: 'center' }}>
+              <RefreshIndicator
+                size={50}
+                left={0}
+                top={0}
+                loadingColor="#00BCD4"
+                status="loading"
+                style={{ margin: '0 auto', display: 'inline-block', position: 'relative' }}
+              />
+            </ListItem>
+            {this.props.repos.map((
+              { avatar, repo, desc, stars, forks, avatars, repoLink }, index,
+            ) => (
+              <a key={index} style={styles.link} href={repoLink}>
+                <ListItem key={repo}>
+                  <Card>
+                    <CardHeader
+                      avatar={avatar}
+                      title={repo}
+                      subtitle=""
+                    />
+                    <Divider style={{ marginLeft: 8, marginRight: 8 }} />
+                    <CardText>
+                      {desc}
+                    </CardText>
+                    <Divider style={{ marginLeft: 8, marginRight: 8 }} />
+                    <div style={styles.repo.statistics}>
+                      <div style={styles.repo.statistics.stars}>
+                        <img style={{ marginRight: 4 }} role="presentation" src={IconStar} />
+                        <span>{stars}</span>
+                      </div>
+                      <div style={styles.repo.statistics.forks}>
+                        <img style={{ marginRight: 4 }} role="presentation" src={IconFork} />
+                        <span>{forks}</span>
+                      </div>
+                      <div style={styles.repo.statistics.members}>
+                        {avatars.map((e, i) => (
+                          <Avatar key={i} size={20} src={e} />
+                        ))}
+                      </div>
                     </div>
-                    <div style={styles.repo.statistics.forks}>
-                      <img style={{ marginRight: 4 }} role="presentation" src={IconFork} />
-                      <span>{forks}</span>
-                    </div>
-                    <div style={styles.repo.statistics.members}>
-                      {avatars.map((e, i) => (
-                        <Avatar key={i} size={20} src={e} />
-                      ))}
-                    </div>
-                  </div>
-                </Card>
-              </ListItem>
-            </a>
-          ))}
-        </List>
+                  </Card>
+                </ListItem>
+              </a>
+            ))}
+          </List>
+        </div>
       </div>
     );
   }
