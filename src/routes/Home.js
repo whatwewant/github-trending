@@ -3,7 +3,7 @@
 * @Date:   2017-04-11T13:53:42+08:00
 * @Email:  uniquecolesmith@gmail.com
 * @Last modified by:   eason
-* @Last modified time: 2017-04-15T14:40:59+08:00
+* @Last modified time: 2017-04-15T15:27:11+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -73,9 +73,9 @@ const getStyles = (props) => {
       WebkitOverflowScrolling: 'touch',
 
       loading: {
-        transition: 'all .3s ease-in',
-        // opacity: props.loading ? 1 : 0,
-        height: props.loading ? '100%' : 0,
+        transition: 'all .3s ease-in .2s',
+        opacity: props.loading ? 1 : 0,
+        height: props.loading ? 82 : 0,
       },
 
       statistics: {
@@ -215,7 +215,8 @@ const mapStateToProps = ({ loading, trending }) => {
 
 const mapDispatchToProps = dispatch => ({
   loadingRepo(language) {
-    dispatch({ type: 'trending/sync/select/language', payload: language });
+    // dispatch({ type: 'trending/sync/select/language', payload: language });
+    dispatch({ type: 'trending/sync/repo', payload: { language } });
   },
 });
 

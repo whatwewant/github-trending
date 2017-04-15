@@ -3,7 +3,7 @@
 * @Date:   2017-04-12T00:24:12+08:00
 * @Email:  uniquecolesmith@gmail.com
 * @Last modified by:   eason
-* @Last modified time: 2017-04-12T02:45:59+08:00
+* @Last modified time: 2017-04-15T15:21:55+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -43,14 +43,15 @@ export default {
   },
   effects: {
     *'sync/repo'({ payload: { language, type } }, { call, put }) {
+      yield put({ type: 'select/language', payload: language });
       const data = yield call(services.fetchRepos, { language, type });
       yield put({ type: 'save/trending', payload: data });
     },
-    *'sync/select/language'({ payload: language }, { select, put }) {
-      const currentLanguage = yield select(state => state.trending.selectedLanguage);
-      if (currentLanguage === language) return false;
+    *'sync/select/language'({ payload: language }, { put }) {
+      // const currentLanguage = yield select(state => state.trending.selectedLanguage);
+      // if (currentLanguage === language) return false;
 
-      yield put({ type: 'select/language', payload: language });
+      // yield put({ type: 'select/language', payload: language });
       yield put({ type: 'sync/repo', payload: { language } });
     },
   },
@@ -61,7 +62,8 @@ export default {
       history.listen(({ pathname }) => {
         if (pathname.startsWith('/repo/')) {
           const language = /\/repo\/([^?]+)?/.exec(pathname)[1];
-          dispatch({ type: 'sync/select/language', payload: language });
+          // dispatch({ type: 'sync/select/language', payload: language });
+          dispatch({ type: 'sync/repo', payload: { language } });
         }
       });
     },
