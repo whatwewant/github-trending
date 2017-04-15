@@ -3,7 +3,7 @@
 * @Date:   2017-04-11T13:53:42+08:00
 * @Email:  uniquecolesmith@gmail.com
 * @Last modified by:   eason
-* @Last modified time: 2017-04-12T07:51:45+08:00
+* @Last modified time: 2017-04-15T14:40:59+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -22,6 +22,7 @@ import RefreshIndicator from 'material-ui/RefreshIndicator';
 
 import IconStar from '../assets/star.svg';
 import IconFork from '../assets/fork.svg';
+import IconGithub from '../assets/github.svg';
 
 const getStyles = (props) => {
   return {
@@ -40,7 +41,8 @@ const getStyles = (props) => {
     },
 
     drawer: {
-      backgroundColor: 'linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)',
+      // backgroundColor: 'linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)',
+      backgroundColor: 'rgba(0, 0, 0, .38)',
     },
 
     person: {
@@ -54,7 +56,7 @@ const getStyles = (props) => {
     },
 
     language: {
-      height: 'calc(100% - 166px)',
+      height: 'calc((100% - 166px) - 128px)',
       overflowX: 'hidden',
       overflowY: 'auto',
       WebkitOverflowScrolling: 'touch',
@@ -122,12 +124,16 @@ class Home extends React.Component {
         <AppBar
           style={styles.bar}
           title={`Trending - ${this.props.language}`}
-          iconClassNameRight="muidocs-icon-navigation-expand-more"
+          iconElementRight={
+            <a href="https://github.com/whatwewant/github-trending">
+              <img style={{ marginTop: 12, marginRight: 12 }} role="presentation" src={IconGithub} />
+            </a>
+          }
           onLeftIconButtonTouchTap={() => this.setState({ open: true })}
         />
         <Drawer
           docked={false}
-          width={150}
+          width={220}
           open={this.state.open}
           onRequestChange={open => this.setState({ open })}
           overlayStyle={styles.drawer}
@@ -143,6 +149,7 @@ class Home extends React.Component {
               </Link>
             ))}
           </List>
+          <Divider style={{ marginLeft: 8, marginRight: 8 }} />
         </Drawer>
         <List style={styles.repo}>
           <ListItem style={styles.repo.loading} innerDivStyle={{ display: 'flex', justifyContent: 'center' }}>
@@ -155,8 +162,10 @@ class Home extends React.Component {
               style={{ margin: '0 auto', display: 'inline-block', position: 'relative' }}
             />
           </ListItem>
-          {this.props.repos.map(({ avatar, repo, desc, stars, forks, avatars, repoLink }) => (
-            <a style={styles.link} href={repoLink}>
+          {this.props.repos.map((
+            { avatar, repo, desc, stars, forks, avatars, repoLink }, index,
+          ) => (
+            <a key={index} style={styles.link} href={repoLink}>
               <ListItem key={repo}>
                 <Card>
                   <CardHeader
