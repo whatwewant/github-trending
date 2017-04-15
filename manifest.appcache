@@ -1,9 +1,10 @@
 CACHE MANIFEST
-#ver:4/12/2017, 7:54:39 AM
+#ver:4/15/2017, 2:42:24 PM
 #plugin:4.6.2
 
 CACHE:
 ./static/fork.f3eaf4dd.svg
+./static/github.5057b77d.svg
 ./static/star.a6381169.svg
 ./index.js
 ./index.css
