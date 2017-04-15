@@ -3,7 +3,7 @@
 * @Date:   2017-04-11T13:53:42+08:00
 * @Email:  uniquecolesmith@gmail.com
 * @Last modified by:   eason
-* @Last modified time: 2017-04-15T17:35:47+08:00
+* @Last modified time: 2017-04-15T21:07:05+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -11,6 +11,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
+
+import ReactPullToRefresh from 'react-pull-to-refresh';
 
 import AppBar from 'material-ui/AppBar';
 import Avatar from 'material-ui/Avatar';
@@ -74,7 +76,7 @@ const getStyles = (props) => {
       WebkitOverflowScrolling: 'touch',
 
       loading: {
-        transition: 'all .3s ease-in .2s',
+        transition: 'opacity .3s ease-in .2s',
         opacity: props.loading ? 1 : 0,
         height: props.loading ? 82 : 0,
       },
@@ -109,6 +111,7 @@ const getStyles = (props) => {
 
 class Home extends React.Component {
 
+  /* eslint-disable */
   static propTypes = {
     loading: PropTypes.bool,
 
@@ -126,6 +129,7 @@ class Home extends React.Component {
       repoLink: PropTypes.string,
     })),
   };
+  /* eslint-enable */
 
   state = {
     open: false,
@@ -180,8 +184,20 @@ class Home extends React.Component {
           </List>
           <Divider style={{ marginLeft: 8, marginRight: 8 }} />
         </Drawer>
-        <div ref={ref => (this.reposArea = ref)} style={styles.repo}>
-          <List style={{ width: '100%', height: '100%' }}>
+        <ReactPullToRefresh
+          ref={ref => (this.reposArea = ref)}
+          style={styles.repo}
+          distanceToRefresh={70}
+          resistance={2.5}
+          onRefresh={(resolve) => { resolve(); this.props.loadingRepo(this.props.language); }}
+        >
+          <List
+            style={{
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'rgba(255, 255, 255, 1)', // for hiding react pull to refresh icon
+            }}
+          >
             <ListItem style={styles.repo.loading} innerDivStyle={{ display: 'flex', justifyContent: 'center' }}>
               <RefreshIndicator
                 size={50}
@@ -195,7 +211,7 @@ class Home extends React.Component {
             {this.props.repos.map((
               { avatar, repo, desc, stars, forks, avatars, repoLink }, index,
             ) => (
-              <a key={index} style={styles.link} href={repoLink}>
+              <a key={index} style={styles.link} data-href={repoLink}>
                 <ListItem key={repo}>
                   <Card>
                     <CardHeader
@@ -228,7 +244,7 @@ class Home extends React.Component {
               </a>
             ))}
           </List>
-        </div>
+        </ReactPullToRefresh>
       </div>
     );
   }
