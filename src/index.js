@@ -29,7 +29,7 @@ const app = dva({
           url: window.location.href, // eslint-disable-line
           title: err.title || 'unnamed',
           message: err.message,
-          tag: ['music'],
+          tag: ['github-trending'],
         }),
       });
     } else {
