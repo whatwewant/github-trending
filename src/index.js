@@ -11,6 +11,7 @@
 import dva from 'dva';
 import createLoading from 'dva-loading';
 import * as OfflinePluginRuntime from 'offline-plugin/runtime';
+import request from './utils/request';
 import './index.less';
 
 OfflinePluginRuntime.install();
@@ -18,7 +19,22 @@ OfflinePluginRuntime.install();
 // 1. Initialize
 const app = dva({
   onError(err) {
-    alert(err.message);
+    if (process.env.NODE_ENV === 'production') {
+      request('http://121.42.156.153:59438/api/v1/bugs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          url: window.location.href, // eslint-disable-line
+          title: err.title || 'unnamed',
+          message: err.message,
+          tag: ['music'],
+        }),
+      });
+    } else {
+      console.log(err);
+    }
   },
 });
 
