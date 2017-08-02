@@ -19,11 +19,11 @@ import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import { List, ListItem } from 'material-ui/List';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
-import RefreshIndicator from 'material-ui/RefreshIndicator';
 
-import IconStar from '../assets/star.svg';
-import IconFork from '../assets/fork.svg';
 import IconGithub from '../assets/github.svg';
+
+import Loading from '../components/Loading';
+import Repo from '../components/Repo';
 
 const getStyles = (props) => {
   return {
@@ -64,47 +64,22 @@ const getStyles = (props) => {
     },
 
     repo: {
-      position: 'absolute',
-      top: 64,
-      left: 0,
-      width: '100%',
-      height: 'calc(100% - 80px)',
-      overflowX: 'hidden',
-      overflowY: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      backgroundColor: 'rgba(255, 255, 255, 1)', // for hiding react pull to refresh icon
+			position: 'absolute',
+			top: 64,
+			left: 0,
+			width: '100%',
+			height: 'calc(100% - 80px)',
+			overflowX: 'hidden',
+			overflowY: 'auto',
+			WebkitOverflowScrolling: 'touch',
+			backgroundColor: 'rgba(255, 255, 255, 1)', // for hiding react pull to refresh icon
 
-      loading: {
-        transition: 'opacity .3s ease-in .2s',
-        opacity: props.loading ? 1 : 0,
-        height: props.loading ? 82 : 0,
-      },
-
-      statistics: {
-        padding: 8,
-        display: 'flex',
-        alignItems: 'center',
-
-        stars: {
-          flex: 1,
-          display: 'flex',
-          alignItems: 'center',
-          marginRight: 4,
-        },
-
-        forks: {
-          flex: 1,
-          display: 'flex',
-          alignItems: 'center',
-          marginRight: 4,
-        },
-
-        members: {
-          flex: 2,
-          // height: '50%',
-        },
-      },
-    },
+			loading: {
+				transition: 'opacity .3s ease-in .2s',
+				opacity: props.loading ? 1 : 0,
+				height: props.loading ? 82 : 0,
+			},
+		},
   };
 };
 
@@ -189,51 +164,22 @@ class Home extends React.Component {
           ref={ref => (this.reposArea = ref)}
         >
           <List>
-            <ListItem style={styles.repo.loading} innerDivStyle={{ display: 'flex', justifyContent: 'center' }}>
-              <RefreshIndicator
-                size={50}
-                left={0}
-                top={0}
-                loadingColor="#00BCD4"
-                status="loading"
-                style={{ margin: '0 auto', display: 'inline-block', position: 'relative' }}
-              />
-            </ListItem>
+            <Loading loading={this.props.loading} />
             {this.props.repos.map((
               { avatar, repo, desc, stars, forks, avatars, repoLink }, index,
             ) => (
-              <a key={index} style={styles.link} href={repoLink}>
-                <ListItem key={repo}>
-                  <Card>
-                    <CardHeader
-                      avatar={avatar}
-                      title={repo}
-                      subtitle=""
-                    />
-                    <Divider style={{ marginLeft: 8, marginRight: 8 }} />
-                    <CardText>
-                      {desc}
-                    </CardText>
-                    <Divider style={{ marginLeft: 8, marginRight: 8 }} />
-                    <div style={styles.repo.statistics}>
-                      <div style={styles.repo.statistics.stars}>
-                        <img style={{ marginRight: 4 }} role="presentation" src={IconStar} />
-                        <span>{stars}</span>
-                      </div>
-                      <div style={styles.repo.statistics.forks}>
-                        <img style={{ marginRight: 4 }} role="presentation" src={IconFork} />
-                        <span>{forks}</span>
-                      </div>
-                      <div style={styles.repo.statistics.members}>
-                        {avatars.map((e, i) => (
-                          <Avatar key={i} size={20} src={e} />
-                        ))}
-                      </div>
-                    </div>
-                  </Card>
-                </ListItem>
-              </a>
-            ))}
+                <Repo
+                  key={index}
+                  loading={this.props.loading}
+                  avatar={avatar}
+                  repo={repo}
+                  desc={desc}
+                  stars={stars}
+                  forks={forks}
+                  avatars={avatars}
+                  repoLink={repoLink}
+                />
+              ))}
           </List>
         </div>
       </div>
