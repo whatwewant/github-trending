@@ -3,7 +3,7 @@
 * @Date:   2017-04-11T13:53:42+08:00
 * @Email:  uniquecolesmith@gmail.com
  * @Last modified by:   eason
- * @Last modified time: 2017-08-02T22:54:25+08:00
+ * @Last modified time: 2017-08-02T23:00:58+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -20,6 +20,8 @@ import { List, ListItem } from 'material-ui/List';
 
 import Select from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+
+import QRCode from 'qrcode.react';
 
 import IconGithub from '../assets/github.svg';
 
@@ -167,6 +169,9 @@ class Home extends React.Component {
             ))}
           </List>
           <Divider style={{ marginLeft: 8, marginRight: 8 }} />
+          <div style={{ width: '100%', textAlign: 'center', marginTop: '1rem' }}>
+            <QRCode value="http://moeover.com/github-trending" />
+          </div>
         </Drawer>
 
         <div
