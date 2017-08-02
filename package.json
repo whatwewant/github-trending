@@ -19,7 +19,8 @@
     "qrcode.react": "^0.7.1",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
-    "react-tap-event-plugin": "^2.0.1"
+    "react-tap-event-plugin": "^2.0.1",
+    "roadhogx": "^1.0.4"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
@@ -35,7 +36,7 @@
     "husky": "^0.12.0",
     "offline-plugin": "^4.6.2",
     "redbox-react": "^1.3.2",
-    "roadhog": "^0.5.2",
+    "roadhogx": "^1.0.2",
     "svg-sprite-loader": "^0.3.0"
   }
 }

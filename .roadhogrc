@@ -1,5 +1,16 @@
 {
-  "entry": "src/index.js",
+  "entry": {
+    "index": "./src/index.js",
+    "vendor": [
+      "react",
+      "react-dom",
+      "qrcode.react",
+      "dva",
+      "react-tap-event-plugin"
+    ],
+    "material": ["material-ui"]
+  },
+  "multipage": true,
   "publicPath": "./",
   "env": {
     "development": {
