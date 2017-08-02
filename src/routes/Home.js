@@ -3,7 +3,7 @@
 * @Date:   2017-04-11T13:53:42+08:00
 * @Email:  uniquecolesmith@gmail.com
  * @Last modified by:   eason
- * @Last modified time: 2017-08-02T22:43:34+08:00
+ * @Last modified time: 2017-08-02T22:54:25+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -152,7 +152,7 @@ class Home extends React.Component {
           </Paper>
           <Divider style={{ marginLeft: 8, marginRight: 8 }} />
           <List style={styles.language}>
-            {this.props.languages.map((lang, index) => (
+            {this.props.menus.map((menu, index) => (
               <Link
                 key={index}
                 style={{ textDecoration: 'none' }}
@@ -160,9 +160,9 @@ class Home extends React.Component {
                   this.setState({ open: false });
                   this.reposArea.scrollTo(0, 0);
                 }}
-                to={`/repo/${lang}`}
+                to={`/${menu}`}
               >
-                <ListItem primaryText={`${lang[0].toUpperCase()}${lang.slice(1)}`} />
+                <ListItem primaryText={`${menu[0].toUpperCase()}${menu.slice(1)}`} />
               </Link>
             ))}
           </List>
@@ -216,6 +216,11 @@ class Home extends React.Component {
 const mapStateToProps = ({ loading, trending }) => {
   const { languages, trendings, selectedLanguage, selectedType } = trending;
   return {
+    menus: [
+      'trending',
+      'stars',
+      'resposities',
+    ],
     loading: loading.models.trending,
     language: selectedLanguage,
     languages: languages,
