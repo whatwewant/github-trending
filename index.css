@@ -1,1 +1,21 @@
-#root,body,html{overflow:hidden;height:100%}*{padding:0;margin:0;box-sizing:border-box}
+/**
+* @Author: eason
+* @Date:   2017-01-05T06:16:19+08:00
+* @Email:  uniquecolesmith@gmail.com
+ * @Last modified by:   eason
+ * @Last modified time: 2017-08-02T20:39:50+08:00
+* @License: MIT
+* @Copyright: Eason(uniquecolesmith@gmail.com)
+*/
+html,
+body,
+#root {
+  overflow: hidden;
+  height: 100%;
+}
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}

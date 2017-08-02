@@ -1,12 +1,14 @@
 CACHE MANIFEST
-#ver:2017-8-2 23:04:04
+#ver:2017-8-3 01:35:27
 #plugin:4.8.3
 
 CACHE:
-./static/fork.f3eaf4dd.svg
 ./static/github.5057b77d.svg
 ./static/star.a6381169.svg
+./static/fork.f3eaf4dd.svg
+./material.js
 ./index.js
+./vendor.js
 ./index.css
 ./
 
