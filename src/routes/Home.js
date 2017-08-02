@@ -2,8 +2,8 @@
 * @Author: eason
 * @Date:   2017-04-11T13:53:42+08:00
 * @Email:  uniquecolesmith@gmail.com
-* @Last modified by:   eason
-* @Last modified time: 2017-04-16T00:09:06+08:00
+ * @Last modified by:   eason
+ * @Last modified time: 2017-08-02T22:43:34+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -13,12 +13,13 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 
 import AppBar from 'material-ui/AppBar';
-import Avatar from 'material-ui/Avatar';
 import Drawer from 'material-ui/Drawer';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import { List, ListItem } from 'material-ui/List';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
+
+import Select from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 import IconGithub from '../assets/github.svg';
 
@@ -64,22 +65,26 @@ const getStyles = (props) => {
     },
 
     repo: {
-			position: 'absolute',
-			top: 64,
-			left: 0,
-			width: '100%',
-			height: 'calc(100% - 80px)',
-			overflowX: 'hidden',
-			overflowY: 'auto',
-			WebkitOverflowScrolling: 'touch',
-			backgroundColor: 'rgba(255, 255, 255, 1)', // for hiding react pull to refresh icon
+      position: 'absolute',
+      top: 64,
+      left: 0,
+      width: '100%',
+      height: 'calc(100% - 80px)',
+      overflowX: 'hidden',
+      overflowY: 'auto',
+      WebkitOverflowScrolling: 'touch',
+      backgroundColor: 'rgba(255, 255, 255, 1)', // for hiding react pull to refresh icon
 
-			loading: {
-				transition: 'opacity .3s ease-in .2s',
-				opacity: props.loading ? 1 : 0,
-				height: props.loading ? 82 : 0,
-			},
-		},
+      loading: {
+        transition: 'opacity .3s ease-in .2s',
+        opacity: props.loading
+          ? 1
+          : 0,
+        height: props.loading
+          ? 82
+          : 0,
+      },
+    },
   };
 };
 
@@ -116,7 +121,12 @@ class Home extends React.Component {
   //   this.props.loadingRepo(language);
   // }
 
+  handleLanguageChange = (event, index) => {
+    this.props.handleLanguageChange(this.props.languages[index]);
+  };
+
   render() {
+    const { language } = this.props;
     const styles = getStyles(this.props);
     return (
       <div style={styles.root}>
@@ -142,7 +152,7 @@ class Home extends React.Component {
           </Paper>
           <Divider style={{ marginLeft: 8, marginRight: 8 }} />
           <List style={styles.language}>
-            {this.props.languages.map((language, index) => (
+            {this.props.languages.map((lang, index) => (
               <Link
                 key={index}
                 style={{ textDecoration: 'none' }}
@@ -150,9 +160,9 @@ class Home extends React.Component {
                   this.setState({ open: false });
                   this.reposArea.scrollTo(0, 0);
                 }}
-                to={`/repo/${language}`}
+                to={`/repo/${lang}`}
               >
-                <ListItem primaryText={`${language[0].toUpperCase()}${language.slice(1)}`} />
+                <ListItem primaryText={`${lang[0].toUpperCase()}${lang.slice(1)}`} />
               </Link>
             ))}
           </List>
@@ -163,23 +173,39 @@ class Home extends React.Component {
           style={styles.repo}
           ref={ref => (this.reposArea = ref)}
         >
+          <div style={{ width: '100%', height: '1.75rem', display: 'flex', justifyContent: 'flex-end', padding: '0' }}>
+            <div style={{ width: '7rem' }}>
+              <Select
+                labelStyle={{ textAlign: 'right' }}
+                iconStyle={{ textAlign: 'right' }}
+                underlineStyle={{ width: 0 }}
+                value={language}
+                onChange={this.handleLanguageChange}
+                fullWidth
+              >
+                {this.props.languages.map((lang, index) => (
+                  <MenuItem key={index} value={lang} primaryText={lang} />
+                ))}
+              </Select>
+            </div>
+          </div>
           <List>
             <Loading loading={this.props.loading} />
             {this.props.repos.map((
               { avatar, repo, desc, stars, forks, avatars, repoLink }, index,
             ) => (
-                <Repo
-                  key={index}
-                  loading={this.props.loading}
-                  avatar={avatar}
-                  repo={repo}
-                  desc={desc}
-                  stars={stars}
-                  forks={forks}
-                  avatars={avatars}
-                  repoLink={repoLink}
-                />
-              ))}
+              <Repo
+                key={index}
+                loading={this.props.loading}
+                avatar={avatar}
+                repo={repo}
+                desc={desc}
+                stars={stars}
+                forks={forks}
+                avatars={avatars}
+                repoLink={repoLink}
+              />
+            ))}
           </List>
         </div>
       </div>
@@ -200,6 +226,9 @@ const mapStateToProps = ({ loading, trending }) => {
 const mapDispatchToProps = dispatch => ({
   loadingRepo(language) {
     // dispatch({ type: 'trending/sync/select/language', payload: language });
+    dispatch({ type: 'trending/sync/repo', payload: { language } });
+  },
+  handleLanguageChange(language) {
     dispatch({ type: 'trending/sync/repo', payload: { language } });
   },
 });
