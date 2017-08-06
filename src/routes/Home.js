@@ -47,6 +47,14 @@ const getStyles = (props) => {
       textDecoration: 'none',
     },
 
+    menuItem: {
+      color: '#000',
+      display: 'block',
+      textDecoration: 'none',
+      fontSize: 16,
+      padding: 16,
+    },
+
     bar: {
       position: 'absolute',
       top: 0,
@@ -164,18 +172,23 @@ class Home extends React.Component {
           <Divider style={{ marginLeft: 8, marginRight: 8 }} />
           <List style={styles.language}>
             {this.props.menus.map((menu, index) => (
-              <Link
-                key={index}
-                style={{ textDecoration: 'none' }}
-                onClick={() => {
-                  this.setState({ open: false });
-                  this.reposArea.scrollTo(0, 0);
-                }}
-                to={`/${menu}`}
-              >
-                <ListItem primaryText={`${menu[0].toUpperCase()}${menu.slice(1)}`} />
-              </Link>
-            ))}
+              Object.prototype.hasOwnProperty.call(menu, 'href')
+                ? (<a href={menu.href} style={styles.menuItem}>{menu.label}</a>)
+                : (
+                  <Link
+                    key={index}
+                    style={{ textDecoration: 'none' }}
+                    onClick={() => {
+                      this.setState({ open: false });
+                      this.reposArea.scrollTo(0, 0);
+                    }}
+                    to={`${typeof menu === 'string' ? menu : menu.path}`}
+                  >
+                    {typeof menu === 'string'
+                      ? (<ListItem primaryText={`${menu[0].toUpperCase()}${menu.slice(1)}`} />)
+                      : (<ListItem primaryText={`${menu.label}`} />)}
+                  </Link>)
+                ))}
           </List>
           <Divider style={{ marginLeft: 8, marginRight: 8 }} />
           <div style={{ width: '100%', textAlign: 'center', marginTop: '1rem' }}>
@@ -241,6 +254,10 @@ const mapStateToProps = ({ loading, trending }) => {
       'trending',
       'stars',
       'resposities',
+      // {
+      //   href: 'http://github.com/login/oauth/authorize?client_id=9435aabf393cb270054b&redirect_uri=http://localhost:8000&scope=public_repo',
+      //   label: 'SignIn',
+      // },
     ],
     loading: loading.models.trending,
     language: selectedLanguage,

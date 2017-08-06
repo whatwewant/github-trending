@@ -20,7 +20,7 @@ import SpinLoading from 'respinner/lib/spin';
 const App = Loadable({
   loader: () => new Promise((resolve) => {
     const app = import('./routes/App');
-    setTimeout(() => resolve(app), 2000);
+    setTimeout(() => resolve(app), 100);
   }),
   delay: 10000,
   loading: () => (
