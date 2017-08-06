@@ -3,7 +3,7 @@
 * @Date:   2017-04-11T13:53:42+08:00
 * @Email:  uniquecolesmith@gmail.com
  * @Last modified by:   eason
- * @Last modified time: 2017-08-02T23:00:58+08:00
+ * @Last modified time: 2017-08-06T11:44:28+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -11,6 +11,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
+
+import Loadable from 'react-loadable';
+import FlipMove from 'react-flip-move';
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
@@ -26,7 +29,13 @@ import QRCode from 'qrcode.react';
 import IconGithub from '../assets/github.svg';
 
 import Loading from '../components/Loading';
-import Repo from '../components/Repo';
+// import Repo from '../components/Repo';
+
+const Repo = Loadable({
+  loader: () => import('../components/Repo.js'),
+  loading: () => null,
+});
+
 
 const getStyles = (props) => {
   return {
@@ -196,21 +205,28 @@ class Home extends React.Component {
           </div>
           <List>
             <Loading loading={this.props.loading} />
-            {this.props.repos.map((
-              { avatar, repo, desc, stars, forks, avatars, repoLink }, index,
-            ) => (
-              <Repo
-                key={index}
-                loading={this.props.loading}
-                avatar={avatar}
-                repo={repo}
-                desc={desc}
-                stars={stars}
-                forks={forks}
-                avatars={avatars}
-                repoLink={repoLink}
-              />
-            ))}
+            <FlipMove
+              staggerDelayBy={150}
+              appearAnimation="accordionVertical"
+              enterAnimation="accordionVertical"
+              leaveAnimation="accordionVertical"
+            >
+              {this.props.repos.map((
+                { avatar, repo, desc, stars, forks, avatars, repoLink }, index,
+              ) => (
+                <Repo
+                  key={index}
+                  loading={this.props.loading}
+                  avatar={avatar}
+                  repo={repo}
+                  desc={desc}
+                  stars={stars}
+                  forks={forks}
+                  avatars={avatars}
+                  repoLink={repoLink}
+                />
+              ))}
+            </FlipMove>
           </List>
         </div>
       </div>

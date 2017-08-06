@@ -16,12 +16,14 @@
     "development": {
       "extraBabelPlugins": [
         "dva-hmr",
-        "transform-runtime"
+        "transform-runtime",
+        "syntax-dynamic-import"
       ]
     },
     "production": {
       "extraBabelPlugins": [
-        "transform-runtime"
+        "transform-runtime",
+        "syntax-dynamic-import"
       ]
     }
   }
