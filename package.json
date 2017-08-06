@@ -21,7 +21,8 @@
     "react-dom": "^15.4.0",
     "react-flip-move": "^2.9.14",
     "react-loadable": "^4.0.4",
-    "react-tap-event-plugin": "^2.0.1"
+    "react-tap-event-plugin": "^2.0.1",
+    "respinner": "^2.2.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",

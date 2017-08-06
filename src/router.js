@@ -10,9 +10,39 @@
 
 import React from 'react';
 import { IndexRoute, Router, Route } from 'dva/router';
+import Loadable from 'react-loadable';
 
-import App from './routes/App';
-import Home from './routes/Home';
+import SpinLoading from 'respinner/lib/spin';
+
+// import App from './routes/App';
+// import Home from './routes/Home';
+
+const App = Loadable({
+  loader: () => new Promise(resolve => setTimeout(() => resolve(import('./routes/App')), 1000)),
+  delay: 10000,
+  loading: () => (
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <SpinLoading fill="#00BCD4" borderRadius={2} count={10} />
+    </div>
+  ),
+});
+
+
+const Home = Loadable({
+  loader: () => import('./routes/Home'),
+  loading: () => null,
+});
 
 function RouterConfig({ history }) {
   return (

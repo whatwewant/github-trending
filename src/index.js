@@ -40,13 +40,14 @@ const app = dva({
 
 app.use(createLoading());
 
-app.model(require('./models/trending'));
-
 // 2. Plugins
 // app.use({});
 
 // 3. Model
 // app.model(require('./models/example'));
+import('./models/trending').then(
+  model => app.model(model),
+);
 
 // 4. Router
 app.router(require('./router'));
