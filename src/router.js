@@ -18,7 +18,10 @@ import SpinLoading from 'respinner/lib/spin';
 // import Home from './routes/Home';
 
 const App = Loadable({
-  loader: () => new Promise(resolve => setTimeout(() => resolve(import('./routes/App')), 1000)),
+  loader: () => new Promise((resolve) => {
+    const app = import('./routes/App');
+    setTimeout(() => resolve(app), 2000);
+  }),
   delay: 10000,
   loading: () => (
     <div
