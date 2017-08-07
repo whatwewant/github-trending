@@ -1,16 +1,5 @@
 {
-  "entry": {
-    "index": "./src/index.js",
-    "vendor": [
-      "react",
-      "react-dom",
-      "qrcode.react",
-      "dva",
-      "react-tap-event-plugin"
-    ],
-    "material": ["material-ui"]
-  },
-  "multipage": true,
+  "entry": "./src/index.js",
   "publicPath": "./",
   "env": {
     "development": {
@@ -21,6 +10,18 @@
       ]
     },
     "production": {
+      "entry": {
+        "index": "./src/index.js",
+        "vendor": [
+          "react",
+          "react-dom",
+          "qrcode.react",
+          "dva",
+          "react-tap-event-plugin"
+        ],
+        "material": ["material-ui"]
+      },
+      "multipage": true,
       "extraBabelPlugins": [
         "transform-runtime",
         "syntax-dynamic-import"
