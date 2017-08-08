@@ -2,8 +2,8 @@
 * @Author: eason
 * @Date:   2016-12-15T13:47:54+08:00
 * @Email:  uniquecolesmith@gmail.com
-* @Last modified by:   eason
-* @Last modified time: 2017-04-12T01:23:53+08:00
+ * @Last modified by:   eason
+ * @Last modified time: 2017-08-09T01:37:05+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -20,9 +20,8 @@ import SpinLoading from 'respinner/lib/spin';
 const App = Loadable({
   loader: () => new Promise((resolve) => {
     const app = import('./routes/App');
-    setTimeout(() => resolve(app), 100);
+    setTimeout(() => resolve(app), 2000);
   }),
-  delay: 10000,
   loading: () => (
     <div
       style={{
@@ -47,6 +46,11 @@ const Home = Loadable({
   loading: () => null,
 });
 
+const Readme = Loadable({
+  loader: () => import('./routes/Readme'),
+  loading: () => null,
+});
+
 function RouterConfig({ history }) {
   return (
     <Router history={history}>
@@ -54,6 +58,7 @@ function RouterConfig({ history }) {
         <IndexRoute component={Home} />
         <Route path="repo" component={Home} />
         <Route path="repo/:language" component={Home} />
+        <Route path="repository/:repo" component={Readme} />
       </Route>
     </Router>
   );

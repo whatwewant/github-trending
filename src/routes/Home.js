@@ -3,7 +3,7 @@
 * @Date:   2017-04-11T13:53:42+08:00
 * @Email:  uniquecolesmith@gmail.com
  * @Last modified by:   eason
- * @Last modified time: 2017-08-06T11:44:28+08:00
+ * @Last modified time: 2017-08-09T01:42:58+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -225,7 +225,7 @@ class Home extends React.Component {
               leaveAnimation="accordionVertical"
             >
               {this.props.repos.map((
-                { avatar, repo, desc, stars, forks, avatars, repoLink }, index,
+                { avatar, repo, repoAt, desc, stars, forks, avatars, repoLink }, index,
               ) => (
                 <Repo
                   key={index}
@@ -236,7 +236,7 @@ class Home extends React.Component {
                   stars={stars}
                   forks={forks}
                   avatars={avatars}
-                  repoLink={repoLink}
+                  repoAt={repoAt}
                 />
               ))}
             </FlipMove>

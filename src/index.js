@@ -2,8 +2,8 @@
 * @Author: eason
 * @Date:   2017-01-04T17:00:03+08:00
 * @Email:  uniquecolesmith@gmail.com
-* @Last modified by:   eason
-* @Last modified time: 2017-04-12T02:53:27+08:00
+ * @Last modified by:   eason
+ * @Last modified time: 2017-08-09T01:13:59+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -14,7 +14,9 @@ import * as OfflinePluginRuntime from 'offline-plugin/runtime';
 import request from './utils/request';
 import './index.less';
 
-OfflinePluginRuntime.install();
+if (process.env.NODE_ENV === 'production') {
+  OfflinePluginRuntime.install();
+}
 
 // 1. Initialize
 const app = dva({
@@ -46,6 +48,14 @@ app.use(createLoading());
 // 3. Model
 // app.model(require('./models/example'));
 import('./models/trending').then(
+  model => app.model(model),
+);
+
+import('./models/repo').then(
+  model => app.model(model),
+);
+
+import('./models/readme').then(
   model => app.model(model),
 );
 

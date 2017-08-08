@@ -2,9 +2,11 @@
  * @Author: eason
  * @Date:   2017-08-02T20:00:23+08:00
  * @Last modified by:   eason
- * @Last modified time: 2017-08-02T20:54:01+08:00
+ * @Last modified time: 2017-08-09T01:44:44+08:00
  */
 import React from 'react';
+
+import { Link } from 'dva/router';
 
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import { ListItem } from 'material-ui/List';
@@ -75,13 +77,13 @@ export default({
   stars,
   forks,
   avatars,
-  repoLink,
+  repoAt,
   loading,
 }) => {
   const styles = getStyle({ loading });
 
   return (
-    <a style={styles.link} href={repoLink}>
+    <Link style={styles.link} to={`/repository/${repoAt}`}>
       <ListItem key={repo}>
         <Card>
           <CardHeader
@@ -137,6 +139,6 @@ export default({
           </div>
         </Card>
       </ListItem>
-    </a>
+    </Link>
   );
 };
