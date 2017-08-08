@@ -3,7 +3,7 @@
 * @Date:   2016-12-15T13:47:54+08:00
 * @Email:  uniquecolesmith@gmail.com
  * @Last modified by:   eason
- * @Last modified time: 2017-08-09T01:37:05+08:00
+ * @Last modified time: 2017-08-09T02:34:06+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -46,8 +46,8 @@ const Home = Loadable({
   loading: () => null,
 });
 
-const Readme = Loadable({
-  loader: () => import('./routes/Readme'),
+const Repository = Loadable({
+  loader: () => import('./routes/Repository'),
   loading: () => null,
 });
 
@@ -58,7 +58,7 @@ function RouterConfig({ history }) {
         <IndexRoute component={Home} />
         <Route path="repo" component={Home} />
         <Route path="repo/:language" component={Home} />
-        <Route path="repository/:repo" component={Readme} />
+        <Route path="repository/:repo" component={Repository} />
       </Route>
     </Router>
   );

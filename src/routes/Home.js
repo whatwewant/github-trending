@@ -3,7 +3,7 @@
 * @Date:   2017-04-11T13:53:42+08:00
 * @Email:  uniquecolesmith@gmail.com
  * @Last modified by:   eason
- * @Last modified time: 2017-08-09T01:42:58+08:00
+ * @Last modified time: 2017-08-09T02:32:58+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -200,8 +200,8 @@ class Home extends React.Component {
           style={styles.repo}
           ref={ref => (this.reposArea = ref)}
         >
-          <div style={{ width: '100%', height: '1.75rem', display: 'flex', justifyContent: 'flex-end', padding: '0' }}>
-            <div style={{ width: '7rem' }}>
+          <div style={{ width: '100%', height: '3rem', display: 'flex', justifyContent: 'flex-end', padding: '0' }}>
+            <div style={{ width: '10rem' }}>
               <Select
                 labelStyle={{ textAlign: 'right' }}
                 iconStyle={{ textAlign: 'right' }}
