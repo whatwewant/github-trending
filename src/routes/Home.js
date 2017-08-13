@@ -3,7 +3,7 @@
 * @Date:   2017-04-11T13:53:42+08:00
 * @Email:  uniquecolesmith@gmail.com
  * @Last modified by:   eason
- * @Last modified time: 2017-08-13T21:07:49+08:00
+ * @Last modified time: 2017-08-13T23:48:44+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -30,6 +30,8 @@ import IconGithub from '../assets/github.svg';
 
 import Loading from '../components/Loading';
 // import Repo from '../components/Repo';
+
+import PullRefresh from '../components/PullRefresh';
 
 const Repo = Loadable({
   loader: () => import('../components/Repo.js'),
@@ -141,22 +143,27 @@ class Home extends React.Component {
   //   this.props.loadingRepo(language);
   // }
 
-  componentDidMount() {
-    console.log(this.reposArea);
+  // componentDidMount() {
+  //   console.log(this.reposArea);
+  // }
+
+  onRefresh = () => {
+    this.props.handleRefresh(this.props.language);
   }
+
 
   handleLanguageChange = (event, index) => {
     this.props.handleLanguageChange(this.props.languages[index]);
   };
 
   render() {
-    const { language } = this.props;
+    const { language, refreshing } = this.props;
     const styles = getStyles(this.props);
     return (
       <div style={styles.root} className="home transition-item">
         <AppBar
           style={styles.bar}
-          title={`Trending - ${this.props.language}`}
+          title={`Trending - ${language}`}
           iconElementRight={
             <a href="https://github.com/whatwewant/github-trending">
               <img style={{ marginTop: 12, marginRight: 12 }} role="presentation" src={IconGithub} />
@@ -201,11 +208,21 @@ class Home extends React.Component {
           </div>
         </Drawer>
 
+        <PullRefresh refreshing={refreshing} onRefresh={this.onRefresh} container={'repo'} />
         <div
+          id="repo"
           style={styles.repo}
           ref={ref => (this.reposArea = ref)}
         >
-          <div style={{ width: '100%', height: '3rem', display: 'flex', justifyContent: 'flex-end', padding: '0' }}>
+          <div
+            style={{
+              width: '100%',
+              height: '3rem',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              padding: '0',
+            }}
+          >
             <div style={{ width: '10rem' }}>
               <Select
                 labelStyle={{ textAlign: 'right' }}
@@ -222,7 +239,7 @@ class Home extends React.Component {
             </div>
           </div>
           <List>
-            <Loading loading={this.props.loading} />
+            <Loading loading={!this.props.refreshing && this.props.loading} />
             <FlipMove
               staggerDelayBy={150}
               appearAnimation="accordionVertical"
@@ -253,7 +270,7 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = ({ loading, trending }) => {
-  const { languages, trendings, selectedLanguage, selectedType } = trending;
+  const { languages, trendings, refreshing, selectedLanguage, selectedType } = trending;
   return {
     menus: [
       'trending',
@@ -264,6 +281,7 @@ const mapStateToProps = ({ loading, trending }) => {
       //   label: 'SignIn',
       // },
     ],
+    refreshing,
     loading: loading.models.trending,
     language: selectedLanguage,
     languages: languages,
@@ -278,6 +296,9 @@ const mapDispatchToProps = dispatch => ({
   },
   handleLanguageChange(language) {
     dispatch({ type: 'trending/sync/repo', payload: { language } });
+  },
+  handleRefresh(language) {
+    dispatch({ type: 'trending/refresh/repo', payload: { language } });
   },
 });
 

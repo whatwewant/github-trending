@@ -2,8 +2,8 @@
 * @Author: eason
 * @Date:   2017-04-12T00:24:12+08:00
 * @Email:  uniquecolesmith@gmail.com
-* @Last modified by:   eason
-* @Last modified time: 2017-04-15T15:21:55+08:00
+ * @Last modified by:   eason
+ * @Last modified time: 2017-08-13T23:44:22+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -24,6 +24,7 @@ export default {
     ],
     trendings: {},
 
+    refreshing: false,
     selectedLanguage: 'javascript',
     selectedType: 'daily',
   },
@@ -40,11 +41,24 @@ export default {
         selectedLanguage: payload,
       };
     },
+    'switch/refresh'(state, { payload: refreshing }) {
+      return {
+        ...state,
+        refreshing,
+      };
+    },
   },
   effects: {
     *'sync/repo'({ payload: { language, type } }, { call, put }) {
       yield put({ type: 'select/language', payload: language });
       const data = yield call(services.fetchRepos, { language, type });
+      yield put({ type: 'save/trending', payload: data });
+    },
+    *'refresh/repo'({ payload: { language, type } }, { call, put }) {
+      yield put({ type: 'select/language', payload: language });
+      yield put({ type: 'switch/refresh', payload: true });
+      const data = yield call(services.fetchRepos, { language, type });
+      yield put({ type: 'switch/refresh', payload: false });
       yield put({ type: 'save/trending', payload: data });
     },
     *'sync/select/language'({ payload: language }, { put }) {

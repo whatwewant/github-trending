@@ -3,7 +3,7 @@
 * @Date:   2017-01-04T17:00:03+08:00
 * @Email:  uniquecolesmith@gmail.com
  * @Last modified by:   eason
- * @Last modified time: 2017-08-09T01:13:59+08:00
+ * @Last modified time: 2017-08-13T21:59:16+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -11,12 +11,15 @@
 import dva from 'dva';
 import createLoading from 'dva-loading';
 import * as OfflinePluginRuntime from 'offline-plugin/runtime';
+import eruda from 'eruda';
 import request from './utils/request';
 import './index.less';
 
 if (process.env.NODE_ENV === 'production') {
   OfflinePluginRuntime.install();
 }
+
+eruda.init();
 
 // 1. Initialize
 const app = dva({
