@@ -2,7 +2,7 @@
  * @Author: eason
  * @Date:   2017-08-02T20:00:23+08:00
  * @Last modified by:   eason
- * @Last modified time: 2017-08-09T01:44:44+08:00
+ * @Last modified time: 2017-08-14T01:25:18+08:00
  */
 import React from 'react';
 
@@ -20,6 +20,8 @@ function getStyle(props) {
   return {
     link: {
       textDecoration: 'none',
+      display: 'inline-block',
+      width: '100%',
     },
     repo: {
       position: 'absolute',
