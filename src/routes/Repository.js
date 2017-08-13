@@ -2,7 +2,7 @@
  * @Author: eason
  * @Date:   2017-08-08T01:12:35+08:00
  * @Last modified by:   eason
- * @Last modified time: 2017-08-09T02:42:39+08:00
+ * @Last modified time: 2017-08-10T00:04:09+08:00
  */
 import React from 'react';
 import { connect } from 'dva';
@@ -52,6 +52,7 @@ class Readme extends React.PureComponent {
           display: 'flex',
           flexDirection: 'column',
         }}
+        className="repository transition-item"
       >
         <AppBar
           title={`${name}`}
@@ -124,4 +125,4 @@ const mapState = ({ repository, readme }) => {
   };
 };
 
-export default connect(mapState)(Readme);
+export default connect(mapState, null, null, { withRef: true })(Readme);

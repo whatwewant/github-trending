@@ -3,7 +3,7 @@
 * @Date:   2016-12-15T13:47:54+08:00
 * @Email:  uniquecolesmith@gmail.com
  * @Last modified by:   eason
- * @Last modified time: 2017-08-09T02:34:06+08:00
+ * @Last modified time: 2017-08-10T00:02:51+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -15,7 +15,8 @@ import Loadable from 'react-loadable';
 import SpinLoading from 'respinner/lib/spin';
 
 // import App from './routes/App';
-// import Home from './routes/Home';
+import Home from './routes/Home';
+import Repository from './routes/Repository';
 
 const App = Loadable({
   loader: () => new Promise((resolve) => {
@@ -41,15 +42,15 @@ const App = Loadable({
 });
 
 
-const Home = Loadable({
-  loader: () => import('./routes/Home'),
-  loading: () => null,
-});
-
-const Repository = Loadable({
-  loader: () => import('./routes/Repository'),
-  loading: () => null,
-});
+// const Home = Loadable({
+//   loader: () => import('./routes/Home'),
+//   loading: () => null,
+// });
+//
+// const Repository = Loadable({
+//   loader: () => import('./routes/Repository'),
+//   loading: () => null,
+// });
 
 function RouterConfig({ history }) {
   return (

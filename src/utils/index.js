@@ -1,3 +1,9 @@
+/**
+ * @Author: eason
+ * @Date:   2017-08-06T20:05:55+08:00
+ * @Last modified by:   eason
+ * @Last modified time: 2017-08-13T18:50:11+08:00
+ */
 /* eslint-disable */
 const CLIENT_ID = '9435aabf393cb270054b';
 const CLIENT_SECRET = 'cb03a6f0222cf6b49389b99d48c9881ecec61d70';

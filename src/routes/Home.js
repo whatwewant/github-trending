@@ -3,7 +3,7 @@
 * @Date:   2017-04-11T13:53:42+08:00
 * @Email:  uniquecolesmith@gmail.com
  * @Last modified by:   eason
- * @Last modified time: 2017-08-09T02:32:58+08:00
+ * @Last modified time: 2017-08-13T21:07:49+08:00
 * @License: MIT
 * @Copyright: Eason(uniquecolesmith@gmail.com)
 */
@@ -88,7 +88,8 @@ const getStyles = (props) => {
       top: 64,
       left: 0,
       width: '100%',
-      height: 'calc(100% - 80px)',
+      // height: 'calc(100% - 80px)',
+      height: 'calc(100% - 64px)',
       overflowX: 'hidden',
       overflowY: 'auto',
       WebkitOverflowScrolling: 'touch',
@@ -140,6 +141,10 @@ class Home extends React.Component {
   //   this.props.loadingRepo(language);
   // }
 
+  componentDidMount() {
+    console.log(this.reposArea);
+  }
+
   handleLanguageChange = (event, index) => {
     this.props.handleLanguageChange(this.props.languages[index]);
   };
@@ -148,7 +153,7 @@ class Home extends React.Component {
     const { language } = this.props;
     const styles = getStyles(this.props);
     return (
-      <div style={styles.root}>
+      <div style={styles.root} className="home transition-item">
         <AppBar
           style={styles.bar}
           title={`Trending - ${this.props.language}`}
@@ -276,4 +281,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(Home);
