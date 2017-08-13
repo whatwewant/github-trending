@@ -2,7 +2,7 @@
  * @Author: eason
  * @Date:   2017-08-13T21:11:13+08:00
  * @Last modified by:   eason
- * @Last modified time: 2017-08-13T23:45:07+08:00
+ * @Last modified time: 2017-08-14T01:16:24+08:00
  */
 /**
  * H5高性能下拉刷新组件
@@ -104,7 +104,8 @@ export default class PullRefresh extends PureComponent {
     self.percentage = (self.dragStart - target.clientY) / window.screen.height; // eslint-disable-line
 
     // 当且紧当scrolltop是0且往下滚动时才触发
-    if (document.body.scrollTop === 0) { // eslint-disable-line
+    // if (document.body.scrollTop === 0) { // eslint-disable-line
+    if (this.container.scrollTop === 0) {
       if (self.percentage < 0) {
         event.preventDefault();
         if (!self.changeOneTimeFlag) {
