@@ -247,10 +247,10 @@ class Home extends React.Component {
               leaveAnimation="accordionVertical"
             >
               {this.props.repos.map((
-                { avatar, repo, repoAt, desc, stars, forks, avatars, repoLink }, index,
+                { avatar, repo, repoAt, desc, stars, forks, avatars, repoLink },
               ) => (
                 <Repo
-                  key={index}
+                  key={repo}
                   loading={this.props.loading}
                   avatar={avatar}
                   repo={repo}
@@ -259,6 +259,7 @@ class Home extends React.Component {
                   forks={forks}
                   avatars={avatars}
                   repoAt={repoAt}
+                  repoLink={repoLink}
                 />
               ))}
             </FlipMove>
