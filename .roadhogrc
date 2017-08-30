@@ -18,8 +18,7 @@
           "qrcode.react",
           "dva",
           "react-tap-event-plugin"
-        ],
-        "material": ["material-ui"]
+        ]
       },
       "multipage": true,
       "extraBabelPlugins": [
