@@ -18,6 +18,9 @@ import IconButton from 'material-ui/IconButton';
 
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
+import Mask from 'components/Mask';
+import SpinLoading from 'respinner/lib/spin';
+
 import 'assets/markdown.scss';
 
 marked.setOptions({
@@ -37,12 +40,21 @@ class Readme extends React.PureComponent {
     router: object,
   };
 
+  static defaultProps = {
+    name: 'loading...',
+    fullName: '',
+    author: '',
+    stars: 0,
+    forks: 0,
+    content: '',
+  };
+
   componentDidMount() {
     this.props.dispatch({ type: 'repository/sync', payload: this.props.params.repo });
   }
 
   render() {
-    const { name, fullName, author, avatar, stars, forks, content } = this.props;
+    const { loading, name, fullName, author, avatar, stars, forks, content } = this.props;
     return (
       <div
         style={{
@@ -91,6 +103,24 @@ class Readme extends React.PureComponent {
             />
           </div>
         </div>
+        <Mask
+          active={loading}
+          maskColor={'rgba(0, 0, 0, 0)'}
+        >
+          <div
+            style={{
+              padding: '4rem',
+              backgroundColor: 'rgba(0, 0, 0, 0.78)',
+              borderRadius: 6,
+            }}
+          >
+            <SpinLoading
+              fill="#00BCD4"
+              borderRadius={2}
+              count={10}
+            />
+          </div>
+        </Mask>
       </div>
     );
   }
@@ -111,6 +141,7 @@ const mapState = ({ repository, readme }) => {
   const { avatar_url: avatar, login: author } = owner;
   const { id, content } = readme[current] || {};
   return {
+    loading: !name,
     id,
     name,
     fullName,
